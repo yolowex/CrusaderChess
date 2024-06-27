@@ -1,7 +1,8 @@
-import javax.swing.*;
+import gui.CrusaderChessMainFrame;
+
 public class Launcher {
     Launcher(){
-        new MainFrame();
+        new CrusaderChessMainFrame();
     }
 
     public static void main(String[] args) {
