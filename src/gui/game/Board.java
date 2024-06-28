@@ -9,13 +9,15 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Board extends JPanel {
-    private int parentFrameWidth;
-    private int parentFrameHeight;
+    public int parentFrameWidth;
+    public int parentFrameHeight;
+    public ArrayList<BoardCell> boardCells = new ArrayList<>();
 
     public Board(int parentFrameWidth, int parentFrameHeight) {
         this.parentFrameWidth = parentFrameWidth;
         this.parentFrameHeight = parentFrameHeight;
         this.addMouseListener(new BoardMouseListener(this));
+        initializeBoardCells();
     }
 
     @Override
@@ -27,16 +29,20 @@ public class Board extends JPanel {
 
     void drawBoardCells(Graphics g){
 
-        for (BoardCell cell: initializeBoardCells()) {
+        for (BoardCell cell: boardCells) {
             g.setColor(cell.backgroundColor);
-            g.fillRect(cell.x, cell.y, cell.width, cell.height);
+            g.fillRect(cell.rectangle.x, cell.rectangle.y,
+                    cell.rectangle.width, cell.rectangle.height
+            );
             g.setColor(cell.borderColor);
-            g.drawRect(cell.x, cell.y, cell.width, cell.height);
+            g.drawRect(cell.rectangle.x, cell.rectangle.y,
+                    cell.rectangle.width, cell.rectangle.height
+            );
         }
     }
 
     // initializing the positioning and data of each board cell
-    ArrayList<BoardCell> initializeBoardCells(){
+    void initializeBoardCells(){
         ArrayList<BoardCell> result = new ArrayList<>();
 
         int cellSize = (int)(parentFrameHeight / 8);
@@ -58,7 +64,8 @@ public class Board extends JPanel {
             }
             isWhite = ! isWhite;
         }
-
-        return result;
+        boardCells.clear();
+        boardCells.addAll(result);
     }
+
 }

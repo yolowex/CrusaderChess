@@ -3,10 +3,7 @@ package utils;
 import java.awt.*;
 
 public class BoardCell {
-    public int x;
-    public int y;
-    public int width;
-    public int height;
+    public Rectangle rectangle;
 
     public int row;
     public int column;
@@ -18,10 +15,9 @@ public class BoardCell {
                      int height, int row, int column,
                      Color backgroundColor, Color borderColor
     ) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        this.rectangle = new Rectangle(
+                x,y,width,height
+        );
         this.row = row;
         this.column = column;
         this.backgroundColor = backgroundColor;
