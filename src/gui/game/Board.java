@@ -1,5 +1,6 @@
 package gui.game;
 
+import common.Constants;
 import utils.BoardCell;
 
 import javax.swing.*;
@@ -38,12 +39,22 @@ public class Board extends JPanel {
 
         int cellSize = (int)(parentFrameHeight / 9);
         int xOffset = ((parentFrameHeight / 2) - (cellSize * 4)) / 2;
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 8; y++) {
+        boolean isWhite = true;
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 4; x++) {
+                Color color = Constants.boardCellWhite;
+                if (! isWhite){
+                    color = Constants.boardCellBlack;
+                }
                 result.add(
-                        new BoardCell(xOffset + (x*cellSize),y*cellSize,cellSize,cellSize,y,x,Color.red,Color.white)
+                        new BoardCell(xOffset + (x*cellSize),
+                                y*cellSize,cellSize,cellSize,
+                                y,x,color,Color.white
+                        )
                 );
+                isWhite = ! isWhite;
             }
+            isWhite = ! isWhite;
         }
 
         return result;
