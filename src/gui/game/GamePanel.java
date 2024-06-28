@@ -1,5 +1,7 @@
 package gui.game;
 
+import events.game.BoardMouseListener;
+
 import javax.swing.*;
 import java.awt.*;
 

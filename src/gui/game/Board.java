@@ -1,6 +1,7 @@
 package gui.game;
 
 import common.Constants;
+import events.game.BoardMouseListener;
 import utils.BoardCell;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class Board extends JPanel {
     public Board(int parentFrameWidth, int parentFrameHeight) {
         this.parentFrameWidth = parentFrameWidth;
         this.parentFrameHeight = parentFrameHeight;
+        this.addMouseListener(new BoardMouseListener(this));
     }
 
     @Override
@@ -25,7 +27,7 @@ public class Board extends JPanel {
 
     void drawBoardCells(Graphics g){
 
-        for (BoardCell cell: getBoardCells()) {
+        for (BoardCell cell: initializeBoardCells()) {
             g.setColor(cell.backgroundColor);
             g.fillRect(cell.x, cell.y, cell.width, cell.height);
             g.setColor(cell.borderColor);
@@ -33,11 +35,11 @@ public class Board extends JPanel {
         }
     }
 
-
-    ArrayList<BoardCell> getBoardCells(){
+    // initializing the positioning and data of each board cell
+    ArrayList<BoardCell> initializeBoardCells(){
         ArrayList<BoardCell> result = new ArrayList<>();
 
-        int cellSize = (int)(parentFrameHeight / 9);
+        int cellSize = (int)(parentFrameHeight / 8);
         int xOffset = ((parentFrameHeight / 2) - (cellSize * 4)) / 2;
         boolean isWhite = true;
         for (int y = 0; y < 8; y++) {
