@@ -1,4 +1,4 @@
-package events.game;
+package gui.events;
 
 import gui.game.BoardPanel;
 import utils.BoardCell;
