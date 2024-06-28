@@ -1,6 +1,6 @@
 package gui.events;
 
-import gui.game.BoardPanel;
+import gui.game.GamePanel;
 import utils.BoardCell;
 
 import java.awt.*;
@@ -8,9 +8,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class BoardMouseListener extends MouseAdapter {
-    public BoardPanel board;
+    public GamePanel board;
 
-    public BoardMouseListener(BoardPanel board) {
+    public BoardMouseListener(GamePanel board) {
         this.board = board;
     }
 

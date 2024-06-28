@@ -1,6 +1,6 @@
 package gui;
 
-import gui.game.GamePanel;
+import gui.game.MainPanel;
 import gui.app.AppMenuBar;
 import utils.HelperMethods;
 
@@ -31,7 +31,7 @@ public class CrusaderChessMainFrame {
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         new AppMenuBar(frame);
-        new GamePanel(frame,frameWidth,(int) (frameHeight * 0.92));
+        new MainPanel(frame,frameWidth,(int) (frameHeight * 0.92));
 
         frame.setVisible(true);//making the frame visible
     }
