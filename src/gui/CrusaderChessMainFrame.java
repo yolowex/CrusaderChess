@@ -25,7 +25,7 @@ public class CrusaderChessMainFrame {
         frameWidth = (int)(scrSize.height * 0.7 * 0.9);
         frameHeight = (int)(scrSize.height * 0.7);
         frame.setSize(frameWidth,frameHeight);//400 width and 500 height
-        frame.setResizable(true);
+        frame.setResizable(false);
         frame.setLayout(null);//using no layout managers
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

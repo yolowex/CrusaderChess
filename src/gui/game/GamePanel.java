@@ -1,7 +1,5 @@
 package gui.game;
 
-import events.game.BoardMouseListener;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,7 +7,7 @@ public class GamePanel {
     private JPanel panel;
 
     public GamePanel(JFrame parentFrame,int parentWidth,int parentHeight){
-        JPanel panel = new Board(parentWidth,parentHeight);
+        JPanel panel = new BoardPanel(parentWidth,parentHeight);
 
 
 //        panel.add(new Board());
