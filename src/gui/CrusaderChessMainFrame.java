@@ -1,8 +1,7 @@
 package gui;
 
-import gui.app.AppMainPanel;
+import gui.game.GamePanel;
 import gui.app.AppMenuBar;
-import gui.game.Board;
 import utils.HelperMethods;
 
 import javax.swing.*;
@@ -23,16 +22,16 @@ public class CrusaderChessMainFrame {
 
         Dimension scrSize = HelperMethods.getScreenSize();
 
-        frameWidth = (int)(scrSize.height * 0.7 * 0.6);
+        frameWidth = (int)(scrSize.height * 0.7 * 0.9);
         frameHeight = (int)(scrSize.height * 0.7);
         frame.setSize(frameWidth,frameHeight);//400 width and 500 height
         frame.setResizable(false);
-        frame.setLayout(new BorderLayout());//using no layout managers
+        frame.setLayout(null);//using no layout managers
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         new AppMenuBar(frame);
-        new AppMainPanel(frame);
+        new GamePanel(frame,frame.getWidth(),frame.getHeight());
 
         frame.setVisible(true);//making the frame visible
     }
