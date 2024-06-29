@@ -1,6 +1,7 @@
 package gui.events;
 
 import gui.game.GamePanel;
+import gui.game.models.PieceModel;
 import utils.BoardCell;
 
 import java.awt.*;
@@ -10,8 +11,9 @@ import java.awt.event.MouseEvent;
 public class BoardMouseListener extends MouseAdapter {
     public GamePanel gamePanel;
 
-    public BoardMouseListener(GamePanel board) {
-        this.gamePanel = board;
+    public BoardMouseListener(GamePanel gamePanel) {
+
+        this.gamePanel = gamePanel;
     }
 
     @Override
@@ -22,8 +24,16 @@ public class BoardMouseListener extends MouseAdapter {
         for (BoardCell cell: gamePanel.boardCells) {
             if (cell.rectangle.contains(new Point(x,y))){
                 System.out.println("User clicked at cell " + cell.row + ","+cell.column);
+                PieceModel clickedPiece = gamePanel.findPieceModelWithCell(cell);
+                if (clickedPiece != null){
+                    System.out.println(
+                            "User clicked at Piece "+clickedPiece.pieceName
+                            +" " + clickedPiece.row + ","+clickedPiece.column
+                    );
 
+                    clickedPiece.toggle();
 
+                }
 
                 gamePanel.repaint();
             }

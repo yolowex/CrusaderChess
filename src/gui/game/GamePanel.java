@@ -30,6 +30,7 @@ public class GamePanel extends JPanel {
         initializeBoardCells();
         initializePieces();
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -39,17 +40,19 @@ public class GamePanel extends JPanel {
     }
 
     // initializing the pieces
-    void initializePieces(){
+    private void initializePieces(){
         for (Piece piece: game.getPiecesList()){
             pieceModels.add(
-                    new PieceModel(HelperMethods.getPieceDataByPiece(piece),
-                    piece.team,piece.row,piece.column)
+                    new PieceModel(piece.name
+                            ,HelperMethods.getPieceDataByPiece(piece)
+                            , piece.team,piece.row,piece.column
+                    )
             );
         }
     }
 
     // initializing the positioning and data of each board cell
-    void initializeBoardCells(){
+    private void initializeBoardCells(){
         ArrayList<BoardCell> result = new ArrayList<>();
 
         int cellSize = (int)(parentFrameHeight / 8);
@@ -78,7 +81,7 @@ public class GamePanel extends JPanel {
 
 
 
-    void drawBoardCells(Graphics g){
+    private void drawBoardCells(Graphics g){
         for (BoardCell cell: boardCells) {
             g.setColor(cell.backgroundColor);
             g.fillRect(cell.rectangle.x, cell.rectangle.y,
@@ -91,7 +94,7 @@ public class GamePanel extends JPanel {
         }
     }
 
-    void drawBoardPieces(Graphics g){
+    private void drawBoardPieces(Graphics g){
 
         for (PieceModel piece: pieceModels){
             BoardCell cell = findCellWithCoord(piece.row,piece.column);
@@ -101,15 +104,24 @@ public class GamePanel extends JPanel {
 
     }
 
+    public PieceModel findPieceModelWithCell(BoardCell cell){
+        for (PieceModel piece: pieceModels) {
+            if (piece.row == cell.row && piece.column == cell.column){
+                return  piece;
+            }
+        }
 
-    BoardCell findCellWithCoord(int row,int column) {
+        return null;
+    }
+
+    public BoardCell findCellWithCoord(int row,int column) {
         // find a piece with its coordination
         for (BoardCell cell: boardCells) {
             if (cell.row == row && cell.column == column){
                 return cell;
             }
         }
-
+        // we don't return null because it could mess the game
         throw new Error("Could not find cell with row "+row+" and column "+column);
     }
 
