@@ -23,16 +23,19 @@ public class BoardMouseListener extends MouseAdapter {
 
         for (BoardCell cell: gamePanel.boardCells) {
             if (cell.rectangle.contains(new Point(x,y))){
-                System.out.println("User clicked at cell " + cell.row + ","+cell.column);
+//                System.out.println("User clicked at cell " + cell.row + ","+cell.column);
                 PieceModel clickedPiece = gamePanel.findPieceModelWithCell(cell);
                 if (clickedPiece != null){
-                    System.out.println(
-                            "User clicked at Piece "+clickedPiece.pieceName
-                            +" " + clickedPiece.row + ","+clickedPiece.column
-                    );
-
+//                    System.out.println(
+//                            "User clicked at Piece "+clickedPiece.pieceName
+//                            +" " + clickedPiece.row + ","+clickedPiece.column
+//                    );
+//
+                    gamePanel.untoggleAllPieces();
                     clickedPiece.toggle();
-
+                    if (clickedPiece.isToggled){
+                        gamePanel.toggledPiece = clickedPiece;
+                    }
                 }
 
                 gamePanel.repaint();

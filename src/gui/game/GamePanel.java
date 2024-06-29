@@ -19,7 +19,7 @@ public class GamePanel extends JPanel {
     public int parentFrameHeight;
     public ArrayList<BoardCell> boardCells = new ArrayList<>();
     public ArrayList<PieceModel> pieceModels = new ArrayList<>();
-
+    public PieceModel toggledPiece = null;
     public Game game;
 
     public GamePanel(int parentFrameWidth, int parentFrameHeight) {
@@ -102,6 +102,13 @@ public class GamePanel extends JPanel {
         }
 
 
+    }
+
+    public void untoggleAllPieces(){
+        for (PieceModel piece: pieceModels){
+            piece.isToggled = false;
+        }
+        toggledPiece = null;
     }
 
     public PieceModel findPieceModelWithCell(BoardCell cell){
