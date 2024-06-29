@@ -14,7 +14,7 @@ public class Game {
     public Game(GameMode gameMode) {
         this.gameMode = gameMode;
         this.board = new Board();
-        this.currentPlayerTurn = PieceTeam.WHITE;
+        this.currentPlayerTurn = PieceTeam.CRUSADERS_WHITE;
     }
 
     public List<Piece> getPiecesList(){
