@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public enum PieceData {
     // put data of each piece, here, it helps with organization and scalability
-    WHITE_SOLDIER("Soldier","assets/pwhite.png"),
-    BLACK_SOLDIER("Soldier","assets/pblack.png"),
+    WHITE_SOLDIER("Soldier","assets/crus_soldier.png"),
+    BLACK_SOLDIER("Soldier","assets/arab_soldier.jpeg"),
 
 
 

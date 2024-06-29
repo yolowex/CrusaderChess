@@ -19,10 +19,10 @@ public class CellHighlightComponent {
         // draw a circle in this method
         Rectangle r = cell.rectangle;
         Rectangle shrinkedRect = new Rectangle(
-                (int)(r.x + r.width * 0.25),
-                (int)(r.y + r.height * 0.25),
-                (int)(r.width * 0.5),
-                (int)(r.height * 0.5)
+                (int)(r.x + r.width * 0.05),
+                (int)(r.y + r.height * 0.05),
+                (int)(r.width * 0.9),
+                (int)(r.height * 0.9)
         );
         g.setColor(color);
         g.fillOval(shrinkedRect.x,shrinkedRect.y,
