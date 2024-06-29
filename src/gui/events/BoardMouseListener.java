@@ -31,10 +31,14 @@ public class BoardMouseListener extends MouseAdapter {
 //                            +" " + clickedPiece.row + ","+clickedPiece.column
 //                    );
 //
-                    gamePanel.untoggleAllPieces();
-                    clickedPiece.toggle();
-                    if (clickedPiece.isToggled){
-                        gamePanel.toggledPiece = clickedPiece;
+
+                    if (gamePanel.game.getCurrentPlayerTurn() == clickedPiece.pieceTeam)
+                    {
+                        gamePanel.untoggleAllPieces();
+                        clickedPiece.toggle();
+                        if (clickedPiece.isToggled) {
+                            gamePanel.toggledPiece = clickedPiece;
+                        }
                     }
                 }
 
