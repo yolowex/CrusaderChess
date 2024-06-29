@@ -8,10 +8,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class BoardMouseListener extends MouseAdapter {
-    public GamePanel board;
+    public GamePanel gamePanel;
 
     public BoardMouseListener(GamePanel board) {
-        this.board = board;
+        this.gamePanel = board;
     }
 
     @Override
@@ -19,10 +19,13 @@ public class BoardMouseListener extends MouseAdapter {
         int x = e.getX();
         int y = e.getY();
 
-        for (BoardCell cell: board.boardCells) {
+        for (BoardCell cell: gamePanel.boardCells) {
             if (cell.rectangle.contains(new Point(x,y))){
                 System.out.println("User clicked at cell " + cell.row + ","+cell.column);
 
+
+
+                gamePanel.repaint();
             }
         }
     }

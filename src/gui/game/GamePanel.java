@@ -3,6 +3,7 @@ package gui.game;
 import common.Constants;
 import common.enums.GameMode;
 import gui.events.BoardMouseListener;
+import gui.game.components.PieceComponent;
 import gui.game.models.PieceModel;
 import logic.Game;
 import logic.Pieces.Piece;
@@ -18,6 +19,7 @@ public class GamePanel extends JPanel {
     public int parentFrameHeight;
     public ArrayList<BoardCell> boardCells = new ArrayList<>();
     public ArrayList<PieceModel> pieceModels = new ArrayList<>();
+
     public Game game;
 
     public GamePanel(int parentFrameWidth, int parentFrameHeight) {
@@ -28,6 +30,14 @@ public class GamePanel extends JPanel {
         initializeBoardCells();
         initializePieces();
     }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        drawBoardCells(g);
+        drawBoardPieces(g);
+
+    }
+
     // initializing the pieces
     void initializePieces(){
         for (Piece piece: game.getPiecesList()){
@@ -65,12 +75,7 @@ public class GamePanel extends JPanel {
         boardCells.addAll(result);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        drawBoardCells(g);
-        drawBoardPieces(g);
-    }
+
 
 
     void drawBoardCells(Graphics g){
@@ -90,15 +95,7 @@ public class GamePanel extends JPanel {
 
         for (PieceModel piece: pieceModels){
             BoardCell cell = findCellWithCoord(piece.row,piece.column);
-
-            g.drawImage(
-                    piece.pieceData.image,
-                    cell.rectangle.x,
-                    cell.rectangle.y,
-                    cell.rectangle.width,
-                    cell.rectangle.height,
-                    this
-            );
+            new PieceComponent(cell,piece).draw(g,this);
         }
 
 
@@ -106,7 +103,7 @@ public class GamePanel extends JPanel {
 
 
     BoardCell findCellWithCoord(int row,int column) {
-        // find a piece with its coordinations
+        // find a piece with its coordination
         for (BoardCell cell: boardCells) {
             if (cell.row == row && cell.column == column){
                 return cell;

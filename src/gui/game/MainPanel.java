@@ -7,7 +7,7 @@ public class MainPanel {
     private JPanel panel;
 
     public MainPanel(JFrame parentFrame, int parentWidth, int parentHeight){
-        JPanel panel = new GamePanel(parentWidth,parentHeight);
+        panel = new GamePanel(parentWidth,parentHeight);
 
 
 //        panel.add(new Board());

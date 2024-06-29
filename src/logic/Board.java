@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Board {
-    final private ArrayList<Piece> piecesList = new ArrayList<>();
+    final  private ArrayList<Piece> piecesList = new ArrayList<>();
 
     public List<Piece> getPiecesList() {
         // return an unmodifiable version to prevent random fuck-ups
