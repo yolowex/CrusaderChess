@@ -13,7 +13,7 @@ public class Game {
 
     public Game(GameMode gameMode) {
         this.gameMode = gameMode;
-        this.board = new Board();
+        this.board = new Board(this);
         this.currentPlayerTurn = PieceTeam.CRUSADERS_WHITE;
     }
 

@@ -2,26 +2,30 @@ package logic.Pieces;
 
 import common.enums.PieceName;
 import common.enums.PieceTeam;
-import jdk.jshell.spi.ExecutionControl;
+import logic.Cell;
 
 public class Piece {
     public final PieceName name;
     public final PieceTeam team;
-    public int row;
-    public int column;
+    public final int power;
+    public final int movementRange;
+
+    public final Cell cell;
     public boolean isAlive;
 
-    public Piece(PieceName name, PieceTeam team, int row, int column) {
+
+    public Piece(PieceName name, PieceTeam team, int power,int movementRange,Cell cell) {
         this.name = name;
         this.team = team;
-        this.row = row;
-        this.column = column;
+        this.cell = cell;
+        this.power = power;
+        this.movementRange = movementRange;
         this.isAlive = true;
     }
 
     @Override
     public String toString() {
-        return "<Piece:"+name+","+team+",row:"+row+",column:"+column+">";
+        return "<Piece:"+name+","+team+",row:"+cell.row+",column:"+cell.column+">";
     }
 
     void getValidMoves(){

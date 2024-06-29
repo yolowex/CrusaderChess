@@ -2,9 +2,10 @@ package logic.Pieces;
 
 import common.enums.PieceName;
 import common.enums.PieceTeam;
+import logic.Cell;
 
 public class Archer extends Piece{
-    public Archer(PieceTeam team, int row, int column) {
-        super(PieceName.ARCHER, team, row, column);
+    public Archer(PieceTeam team, Cell cell) {
+        super(PieceName.ARCHER, team,2,1, cell);
     }
 }
