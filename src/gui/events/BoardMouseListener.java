@@ -57,7 +57,7 @@ public class BoardMouseListener extends MouseAdapter {
             if (lastToggledPiece == null || (lastToggledPiece.pieceName != piece.pieceName)
             ){
 
-                if (Math.random() < 0.45){
+                if (Math.random() < 0.65){
                     // we don't want to always play the audio
                     // because the player could get a headache
                     gamePanel.stopAllAudios();
