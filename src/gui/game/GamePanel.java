@@ -6,7 +6,6 @@ import gui.events.BoardMouseListener;
 import gui.game.components.CellHighlightComponent;
 import gui.game.components.PieceComponent;
 import gui.game.models.PieceModel;
-import logic.Board;
 import logic.Cell;
 import logic.Game;
 import logic.Pieces.Piece;
@@ -32,7 +31,7 @@ public class GamePanel extends JPanel {
         this.parentFrameHeight = parentFrameHeight;
         this.addMouseListener(new BoardMouseListener(this));
         initializeBoardCells();
-        initializePieces();
+        updatePieces();
     }
 
     @Override
@@ -46,18 +45,21 @@ public class GamePanel extends JPanel {
     }
 
     public void update(){
+        updatePieces();
         toggledBoardCells.clear();
         if (toggledPiece != null){
             toggledBoardCells.addAll(
-                    findValidMovesOfPieceAt(toggledPiece.row, toggledPiece.column)
+                    findValidMovesOfToggledPiece()
             );
         }
     }
 
 
-    // initializing the pieces
-    private void initializePieces(){
+    // update all info about pieces
+    private void updatePieces(){
+        pieceModels.clear();
         for (Piece piece: game.getPiecesList()){
+            if (!piece.isAlive) continue;
             pieceModels.add(
                     new PieceModel(piece.name
                             ,HelperMethods.getPieceDataByPiece(piece)
@@ -151,11 +153,18 @@ public class GamePanel extends JPanel {
         throw new Error("Could not find cell with row "+row+" and column "+column);
     }
 
-    public ArrayList<BoardCell> findValidMovesOfPieceAt(int row,int column){
-        ArrayList<BoardCell> validMoves = new ArrayList<>();
-        Piece piece = game.findPieceAt(row,column);
+    public Piece findPieceAt(int row, int column){
+        return game.findPieceAt(row,column);
+    }
 
-        for (Cell cell: piece.getValidMoves()) {
+    public Piece getToggledPiece(){
+        return findPieceAt(toggledPiece.row, toggledPiece.column);
+    }
+
+    public ArrayList<BoardCell> findValidMovesOfToggledPiece(){
+        ArrayList<BoardCell> validMoves = new ArrayList<>();
+
+        for (Cell cell: getToggledPiece().getValidMoves()) {
             validMoves.add(
               findCellWithCoord(cell.row,cell.column)
             );

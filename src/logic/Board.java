@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Board {
     final private ArrayList<Piece> piecesList = new ArrayList<>();
-    final private Game game;
+    final public Game game;
     final public int boardTotalColumns; // x
     final public int boardTotalRows; // y
 
@@ -27,6 +27,7 @@ public class Board {
 
     public Piece findPieceAt(int row,int column){
         for (Piece piece: piecesList) {
+            if (!piece.isAlive) continue;
             if (piece.cell.row == row && piece.cell.column == column){
                 return piece;
             }

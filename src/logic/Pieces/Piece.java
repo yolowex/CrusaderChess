@@ -50,13 +50,19 @@ public class Piece {
         return  validMoves;
     }
 
-    public void moveTo(){
-        throw new UnsupportedOperationException(getClass().getName()+
-                ".moveTo must be overridden by subclasses");
+    public void moveTo(int row,int column){
+        cell.update(row, column);
+
+        // this way of accessing Game is probably bad
+        cell.board.game.turnMove();
+
     }
-    public void moveToTakePiece(){
-        throw new UnsupportedOperationException(getClass().getName()+
-                ".moveToTakePiece must be overridden by subclasses");
+
+    public void moveToTakePiece(Piece piece){
+        cell.update(piece.cell.row, piece.cell.column);
+        piece.isAlive = false;
+        cell.board.game.turnMove();
+
     }
 
 

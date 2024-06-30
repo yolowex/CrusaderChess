@@ -26,4 +26,13 @@ public class Game {
         return board.getPiecesList();
     }
     public PieceTeam getCurrentPlayerTurn(){return currentPlayerTurn;}
+
+    public void turnMove(){
+        if (currentPlayerTurn == PieceTeam.CRUSADERS_WHITE){
+            currentPlayerTurn = PieceTeam.MUSLIMS_BLACK;
+        }
+        else{
+            currentPlayerTurn = PieceTeam.CRUSADERS_WHITE;
+        }
+    }
 }

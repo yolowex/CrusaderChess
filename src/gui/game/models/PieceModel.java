@@ -11,7 +11,6 @@ public class PieceModel {
     public boolean isToggled;
     public int row;
     public int column;
-    public boolean isAlive;
     public int power;
 
     public PieceModel(PieceName pieceName,PieceData pieceData,PieceTeam pieceTeam, int power, int row,
@@ -23,7 +22,11 @@ public class PieceModel {
         this.row = row;
         this.column = column;
         this.isToggled = false;
-        this.isAlive = true;
+    }
+
+    @Override
+    public String toString() {
+        return "<Piece: "+pieceName+", row: "+row+" column: "+column+">";
     }
 
     public void toggle(){

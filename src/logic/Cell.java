@@ -5,7 +5,7 @@ import logic.Pieces.Piece;
 public class Cell {
     public int row;
     public int column;
-    private final Board board;
+    public final Board board;
 
     public Cell(int row, int column, Board board) {
         this.row = row;
@@ -18,14 +18,17 @@ public class Cell {
         this.column = cell.column;
     }
 
+    public void update(int row,int column){
+        this.row = row;
+        this.column = column;
+    }
 
     // used for move validation
     public boolean collidesWithAnyPiece(Piece thisPiece){
         for (Piece piece_: board.getPiecesList()) {
+            if (!piece_.isAlive) continue;
             if (piece_.cell.row == row && piece_.cell.column == column){
-                if (thisPiece.team == piece_.team){
-                    return true;
-                }
+                return true;
             }
         }
         return false;
@@ -34,6 +37,7 @@ public class Cell {
     // used for move validation
     public boolean collidesWithAllies(Piece thisPiece){
         for (Piece piece_: board.getPiecesList()) {
+            if (!piece_.isAlive) continue;
             if (piece_.cell.row == row && piece_.cell.column == column){
                 if (thisPiece.team == piece_.team){
                     return true;
