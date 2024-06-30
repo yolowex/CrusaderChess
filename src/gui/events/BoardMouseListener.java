@@ -40,11 +40,32 @@ public class BoardMouseListener extends MouseAdapter {
     private void clickedOnPiece(PieceModel piece,BoardCell cell){
         if (gamePanel.game.getCurrentPlayerTurn() == piece.pieceTeam) {
             // if the piece the player clicked on is an ally, toggle that instead
-            boolean wasToggled = piece.isToggled;
-            gamePanel.untoggleAllPieces();
-            if (!wasToggled){
-                piece.toggle();
+
+
+            if (gamePanel.toggledPiece != null){
+                if (gamePanel.toggledPiece.row == piece.row
+                        && gamePanel.toggledPiece.column == piece.column){
+                    gamePanel.untoggleAllPieces();
+                    return;
+                }
             }
+
+            PieceModel lastToggledPiece = gamePanel.toggledPiece;
+            gamePanel.untoggleAllPieces();
+
+            piece.toggle();
+            if (lastToggledPiece == null || (lastToggledPiece.pieceName != piece.pieceName)
+            ){
+
+                if (Math.random() < 0.45){
+                    // we don't want to always play the audio
+                    // because the player could get a headache
+                    gamePanel.stopAllAudios();
+                    piece.pieceData.audioClip.setFramePosition(0);
+                    piece.pieceData.audioClip.start();}
+                }
+
+
 
             if (piece.isToggled) {
                 gamePanel.toggledPiece = piece;

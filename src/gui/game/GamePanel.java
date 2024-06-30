@@ -177,4 +177,10 @@ public class GamePanel extends JPanel {
     }
 
 
+    public void stopAllAudios(){
+        for (PieceModel piece: pieceModels){
+            piece.pieceData.audioClip.stop();
+        }
+    }
+
 }
