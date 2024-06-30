@@ -30,4 +30,12 @@ public class Soldier extends Piece{
         validMoves.removeIf(cell_ -> cell_.collidesWithAllies(this));
         return  validMoves;
     }
+
+    @Override
+    protected int getPowerInfluence(Piece otherPiece) {
+        if (otherPiece.team == team && otherPiece.name == PieceName.SOLDIER){
+            return 1;
+        }
+        return 0;
+    }
 }

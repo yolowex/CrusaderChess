@@ -23,4 +23,12 @@ public class Stronghold extends Piece{
         validMoves.removeIf(cell_ -> cell_.collidesWithAnyPiece(this));
         return validMoves;
     }
+
+    @Override
+    protected int getPowerInfluence(Piece otherPiece) {
+        if (otherPiece.team == team){
+            return 1;
+        }
+        return 0;
+    }
 }

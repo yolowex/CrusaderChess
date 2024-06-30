@@ -21,6 +21,8 @@ public class PieceComponent {
             new CellHighlightComponent(cell,Color.red).draw(g);
         }
 
+        drawStringAtBottomLeft(g,cell.rectangle,Integer.toString(pieceModel.power));
+
         g.drawImage(
                 pieceModel.pieceData.image,
                 cell.rectangle.x,
@@ -29,6 +31,17 @@ public class PieceComponent {
                 cell.rectangle.height,
                 observer
         );
+    }
+
+    public static void drawStringAtBottomLeft(Graphics g, Rectangle rect, String text) {
+        // Get the font metrics to determine the height of the text
+        g.setColor(Color.red);
+        FontMetrics metrics = g.getFontMetrics(g.getFont());
+
+        int x = rect.x + 5;
+        int y = rect.y + rect.height - metrics.getDescent();
+
+        g.drawString(text, x, y);
     }
 
 

@@ -66,7 +66,7 @@ public class Piece {
 
     }
 
-    private int getPowerInfluence(Piece otherPiece){
+    protected int getPowerInfluence(Piece otherPiece){
         // we change the values of this on pieces that influence the power of other pieces,
         // in the descendant classes
         return 0;
