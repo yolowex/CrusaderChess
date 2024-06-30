@@ -4,6 +4,7 @@ import common.enums.GameMode;
 import common.enums.PieceTeam;
 import logic.Pieces.Piece;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -17,6 +18,10 @@ public class Game {
         this.currentPlayerTurn = PieceTeam.CRUSADERS_WHITE;
     }
 
+
+    public Piece findPieceAt(int row,int column){
+        return board.findPieceAt(row,column);
+    }
     public List<Piece> getPiecesList(){
         return board.getPiecesList();
     }

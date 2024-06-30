@@ -30,6 +30,7 @@ public class BoardMouseListener extends MouseAdapter {
                 else{
                     clickedOnEmptyCell(cell);
                 }
+                gamePanel.update();
                 gamePanel.repaint();
             }
         }
@@ -38,8 +39,12 @@ public class BoardMouseListener extends MouseAdapter {
     private void clickedOnPiece(PieceModel piece){
         if (gamePanel.game.getCurrentPlayerTurn() == piece.pieceTeam)
         {
+            boolean wasToggled = piece.isToggled;
             gamePanel.untoggleAllPieces();
-            piece.toggle();
+            if (!wasToggled){
+                piece.toggle();
+            }
+
             if (piece.isToggled) {
                 gamePanel.toggledPiece = piece;
             }

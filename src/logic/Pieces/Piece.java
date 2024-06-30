@@ -46,6 +46,7 @@ public class Piece {
             validMoves.add(cell.getBottomLeftCell(i+1));
         }
         validMoves.removeIf(Objects::isNull);
+        validMoves.removeIf(cell_ -> cell_.collidesWithAllies(this));
         return  validMoves;
     }
 

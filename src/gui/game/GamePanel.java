@@ -3,8 +3,11 @@ package gui.game;
 import common.Constants;
 import common.enums.GameMode;
 import gui.events.BoardMouseListener;
+import gui.game.components.CellHighlightComponent;
 import gui.game.components.PieceComponent;
 import gui.game.models.PieceModel;
+import logic.Board;
+import logic.Cell;
 import logic.Game;
 import logic.Pieces.Piece;
 import utils.BoardCell;
@@ -18,6 +21,7 @@ public class GamePanel extends JPanel {
     public int parentFrameWidth;
     public int parentFrameHeight;
     public ArrayList<BoardCell> boardCells = new ArrayList<>();
+    public ArrayList<BoardCell> toggledBoardCells = new ArrayList<>();
     public ArrayList<PieceModel> pieceModels = new ArrayList<>();
     public PieceModel toggledPiece = null;
     public Game game;
@@ -34,10 +38,22 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawBoardCells(g);
-        drawBoardPieces(g);
 
+
+        drawBoardCells(g);
+        drawToggledCells(g);
+        drawBoardPieces(g);
     }
+
+    public void update(){
+        toggledBoardCells.clear();
+        if (toggledPiece != null){
+            toggledBoardCells.addAll(
+                    findValidMovesOfPieceAt(toggledPiece.row, toggledPiece.column)
+            );
+        }
+    }
+
 
     // initializing the pieces
     private void initializePieces(){
@@ -95,13 +111,16 @@ public class GamePanel extends JPanel {
     }
 
     private void drawBoardPieces(Graphics g){
-
         for (PieceModel piece: pieceModels){
             BoardCell cell = findCellWithCoord(piece.row,piece.column);
             new PieceComponent(cell,piece).draw(g,this);
         }
+    }
 
-
+    private void drawToggledCells(Graphics g){
+        for (BoardCell cell: toggledBoardCells) {
+            new CellHighlightComponent(cell,Color.BLUE).draw(g);
+        }
     }
 
     public void untoggleAllPieces(){
@@ -130,6 +149,18 @@ public class GamePanel extends JPanel {
         }
         // we don't return null because it could mess the game
         throw new Error("Could not find cell with row "+row+" and column "+column);
+    }
+
+    public ArrayList<BoardCell> findValidMovesOfPieceAt(int row,int column){
+        ArrayList<BoardCell> validMoves = new ArrayList<>();
+        Piece piece = game.findPieceAt(row,column);
+
+        for (Cell cell: piece.getValidMoves()) {
+            validMoves.add(
+              findCellWithCoord(cell.row,cell.column)
+            );
+        }
+        return validMoves;
     }
 
 

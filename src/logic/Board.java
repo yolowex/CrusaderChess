@@ -25,7 +25,16 @@ public class Board {
         initializePieces();
     }
 
-    void initializePieces(){
+    public Piece findPieceAt(int row,int column){
+        for (Piece piece: piecesList) {
+            if (piece.cell.row == row && piece.cell.column == column){
+                return piece;
+            }
+        }
+        throw new Error("Could not find Piece with row "+row+" and column "+column);
+    }
+
+    private void initializePieces(){
         //
         piecesList.add(new Archer(PieceTeam.MUSLIMS_BLACK,new Cell(0,0,this)));
         piecesList.add(new Stronghold(PieceTeam.MUSLIMS_BLACK,new Cell(0,1,this)));
