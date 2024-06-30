@@ -22,6 +22,7 @@ public class Game {
     public Piece findPieceAt(int row,int column){
         return board.findPieceAt(row,column);
     }
+
     public List<Piece> getPiecesList(){
         return board.getPiecesList();
     }

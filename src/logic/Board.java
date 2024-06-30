@@ -3,6 +3,7 @@ package logic;
 import common.enums.PieceTeam;
 import logic.Pieces.*;
 
+import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +33,7 @@ public class Board {
                 return piece;
             }
         }
-        throw new Error("Could not find Piece with row "+row+" and column "+column);
+        throw new FindException("Could not find Piece with row "+row+" and column "+column);
     }
 
     private void initializePieces(){

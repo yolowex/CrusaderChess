@@ -61,9 +61,12 @@ public class GamePanel extends JPanel {
         for (Piece piece: game.getPiecesList()){
             if (!piece.isAlive) continue;
             pieceModels.add(
-                    new PieceModel(piece.name
+                    new PieceModel(
+                             piece.name
                             ,HelperMethods.getPieceDataByPiece(piece)
-                            , piece.team,piece.power,piece.cell.row,piece.cell.column
+                            ,piece.team,piece.getCurrentPower()
+                            ,piece.cell.row,
+                             piece.cell.column
                     )
             );
         }
@@ -154,6 +157,7 @@ public class GamePanel extends JPanel {
     }
 
     public Piece findPieceAt(int row, int column){
+        // this could go bad, make sure the piece is there before calling
         return game.findPieceAt(row,column);
     }
 

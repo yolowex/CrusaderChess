@@ -2,6 +2,9 @@ package logic;
 
 import logic.Pieces.Piece;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Cell {
     public int row;
     public int column;
@@ -64,6 +67,24 @@ public class Cell {
             return cell;
         }
         return null;
+    }
+
+    public ArrayList<Cell> getAdjacentCells(){
+        ArrayList<Cell> adjacentCells = new ArrayList<>();
+
+        adjacentCells.add(getTopCell(1));
+        adjacentCells.add(getBottomCell(1));
+        adjacentCells.add(getRightCell(1));
+        adjacentCells.add(getLeftCell(1));
+        //
+        adjacentCells.add(getTopRightCell(1));
+        adjacentCells.add(getTopLeftCell(1));
+        adjacentCells.add(getBottomRightCell(1));
+        adjacentCells.add(getBottomLeftCell(1));
+        //
+
+        adjacentCells.removeIf(Objects::isNull);
+        return adjacentCells;
     }
 
     public Cell getTopCell(int step){return  getModifiedCell(-1,0,step);}

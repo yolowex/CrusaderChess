@@ -4,6 +4,7 @@ import common.enums.PieceName;
 import common.enums.PieceTeam;
 import logic.Cell;
 
+import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -64,6 +65,44 @@ public class Piece {
         cell.board.game.turnMove();
 
     }
+
+    private int getPowerInfluence(Piece otherPiece){
+        // we change the values of this on pieces that influence the power of other pieces,
+        // in the descendant classes
+        return 0;
+    }
+
+    private ArrayList<Piece> getAdjacentPieces(){
+        ArrayList<Cell> adjacentCells = cell.getAdjacentCells();
+        ArrayList<Piece> adjacentPieces = new ArrayList<>();
+
+        for (Cell cell: adjacentCells){
+            try{
+                Piece piece = cell.board.game.findPieceAt(cell.row,cell.column);
+                if (piece != null){
+                    adjacentPieces.add(piece);
+                }
+            }
+            catch (FindException e){
+                continue;
+            }
+        }
+
+        return adjacentPieces;
+    }
+
+    public int getCurrentPower(){
+
+        int finalPower = power;
+
+        for (Piece piece: getAdjacentPieces()){
+            finalPower += piece.getPowerInfluence(this);
+        }
+
+        return finalPower;
+    }
+
+
 
 
 }
