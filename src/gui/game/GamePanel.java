@@ -45,7 +45,7 @@ public class GamePanel extends JPanel {
             pieceModels.add(
                     new PieceModel(piece.name
                             ,HelperMethods.getPieceDataByPiece(piece)
-                            , piece.team,piece.cell.row,piece.cell.column
+                            , piece.team,piece.power,piece.cell.row,piece.cell.column
                     )
             );
         }

@@ -12,11 +12,14 @@ public class PieceModel {
     public int row;
     public int column;
     public boolean isAlive;
+    public int power;
 
-    public PieceModel(PieceName pieceName,PieceData pieceData,PieceTeam pieceTeam, int row, int column) {
+    public PieceModel(PieceName pieceName,PieceData pieceData,PieceTeam pieceTeam, int power, int row,
+                      int column) {
         this.pieceName = pieceName;
         this.pieceData = pieceData;
         this.pieceTeam = pieceTeam;
+        this.power = power;
         this.row = row;
         this.column = column;
         this.isToggled = false;

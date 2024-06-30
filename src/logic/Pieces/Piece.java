@@ -4,6 +4,9 @@ import common.enums.PieceName;
 import common.enums.PieceTeam;
 import logic.Cell;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Piece {
     public final PieceName name;
     public final PieceTeam team;
@@ -28,15 +31,29 @@ public class Piece {
         return "<Piece:"+name+","+team+",row:"+cell.row+",column:"+cell.column+">";
     }
 
-    void getValidMoves(){
-        throw new UnsupportedOperationException(getClass().getName()+
-                ".getValidMoves must be overridden by subclasses");
+    public ArrayList<Cell> getValidMoves(){
+        ArrayList<Cell> validMoves = new ArrayList<>();
+
+        for (int i = 0; i < movementRange; i++) {
+            validMoves.add(cell.getTopCell(i+1));
+            validMoves.add(cell.getBottomCell(i+1));
+            validMoves.add(cell.getRightCell(i+1));
+            validMoves.add(cell.getLeftCell(i+1));
+            //
+            validMoves.add(cell.getTopRightCell(i+1));
+            validMoves.add(cell.getTopLeftCell(i+1));
+            validMoves.add(cell.getBottomRightCell(i+1));
+            validMoves.add(cell.getBottomLeftCell(i+1));
+        }
+        validMoves.removeIf(Objects::isNull);
+        return  validMoves;
     }
-    void moveTo(){
+
+    public void moveTo(){
         throw new UnsupportedOperationException(getClass().getName()+
                 ".moveTo must be overridden by subclasses");
     }
-    void moveToTakePiece(){
+    public void moveToTakePiece(){
         throw new UnsupportedOperationException(getClass().getName()+
                 ".moveToTakePiece must be overridden by subclasses");
     }
