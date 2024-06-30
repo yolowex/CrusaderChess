@@ -47,9 +47,13 @@ public class Piece {
             validMoves.add(cell.getBottomLeftCell(i+1));
         }
         validMoves.removeIf(Objects::isNull);
-        validMoves.removeIf(cell_ -> cell_.collidesWithAllies(this));
+        validMoves.removeIf(this::collidesWithAllies);
+        validMoves.removeIf(this::isWeakerThanPieceAt);
         return  validMoves;
     }
+
+
+
 
     public void moveTo(int row,int column){
         cell.update(row, column);
@@ -103,6 +107,47 @@ public class Piece {
     }
 
 
+    // used for move validation
+    public boolean collidesWithAnyPiece(Cell p_cell){
+        for (Piece piece_: p_cell.board.getPiecesList()) {
+            if (!piece_.isAlive) continue;
+            if (piece_.cell.row == p_cell.row && piece_.cell.column == p_cell.column){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    // used for move validation
+    public boolean collidesWithAllies(Cell p_cell){
+        for (Piece piece_: p_cell.board.getPiecesList()) {
+            if (!piece_.isAlive) continue;
+            if (piece_.cell.row == p_cell.row && piece_.cell.column == p_cell.column){
+                if (team == piece_.team){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isWeakerThanPieceAt(Cell p_cell){
+        // checks if there is a piece in the target cell,
+        // and if there is, checks if the power of that piece is greater than
+        // this peace
+        try{
+            Piece piece = cell.board.game.findPieceAt(p_cell.row,p_cell.column);
+            if (this.getCurrentPower() < piece.getCurrentPower()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        catch (FindException e){
+            return false;
+        }
+    }
 
 }

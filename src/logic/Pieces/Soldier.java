@@ -27,7 +27,8 @@ public class Soldier extends Piece{
             validMoves.add(cell.getBottomLeftCell(1));
         }
         validMoves.removeIf(Objects::isNull);
-        validMoves.removeIf(cell_ -> cell_.collidesWithAllies(this));
+        validMoves.removeIf(this::collidesWithAllies);
+        validMoves.removeIf(this::isWeakerThanPieceAt);
         return  validMoves;
     }
 

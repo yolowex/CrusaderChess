@@ -20,7 +20,7 @@ public class Stronghold extends Piece{
     @Override
     public ArrayList<Cell> getValidMoves() {
         ArrayList<Cell> validMoves = super.getValidMoves();
-        validMoves.removeIf(cell_ -> cell_.collidesWithAnyPiece(this));
+        validMoves.removeIf(this::collidesWithAnyPiece);
         return validMoves;
     }
 

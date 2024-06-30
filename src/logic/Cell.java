@@ -26,30 +26,6 @@ public class Cell {
         this.column = column;
     }
 
-    // used for move validation
-    public boolean collidesWithAnyPiece(Piece thisPiece){
-        for (Piece piece_: board.getPiecesList()) {
-            if (!piece_.isAlive) continue;
-            if (piece_.cell.row == row && piece_.cell.column == column){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // used for move validation
-    public boolean collidesWithAllies(Piece thisPiece){
-        for (Piece piece_: board.getPiecesList()) {
-            if (!piece_.isAlive) continue;
-            if (piece_.cell.row == row && piece_.cell.column == column){
-                if (thisPiece.team == piece_.team){
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 
     private boolean isInBoardBounds(){
         // todo: check validity
