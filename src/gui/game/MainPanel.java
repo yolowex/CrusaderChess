@@ -2,13 +2,14 @@ package gui.game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainPanel {
     private JPanel panel;
 
     public MainPanel(JFrame parentFrame, int parentWidth, int parentHeight){
         panel = new GamePanel(parentWidth,parentHeight);
-
 //        panel.add(new Board());
         // Add components to mainPanel
 //        panel.setLayout(new BorderLayout());
@@ -22,5 +23,11 @@ public class MainPanel {
                 ,parentHeight
         );
         parentFrame.add(panel);
+    }
+
+    public void removePanel(JFrame parentFrame) {
+        parentFrame.remove(panel);
+        parentFrame.revalidate();
+        parentFrame.repaint();
     }
 }
