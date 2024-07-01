@@ -1,19 +1,23 @@
 package gui.app;
 
+import gui.game.MainPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenu extends JPanel {
+public class MainMenuPanel extends JPanel {
     private JRadioButton practiceMode;
     private JRadioButton pvpMode;
     private JRadioButton pvcMode;
     private JButton startButton;
     private ButtonGroup group;
     private JLabel instructionLabel;
+    private final MainPanel mainPanel;
 
-    public MainMenu(int width, int height) {
+    public MainMenuPanel(int width, int height, MainPanel mainPanel) {
+        this.mainPanel = mainPanel;
         setPreferredSize(new Dimension(width, height));
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -41,6 +45,9 @@ public class MainMenu extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (practiceMode.isSelected()){
+                    mainPanel.startPracticeMode();
+                }
                 if (pvpMode.isSelected()) {
                     removeAll();
                     add(new JLabel("Choose an option:"), gbc);
