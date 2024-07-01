@@ -1,5 +1,6 @@
 package gui.events;
 
+import common.enums.SoundEffects;
 import gui.game.GamePanel;
 import gui.game.models.PieceModel;
 import logic.Pieces.Piece;
@@ -58,14 +59,13 @@ public class BoardMouseListener extends MouseAdapter {
             ){
 
                 if (Math.random() < 0.75){
+                    // play this sound whenever is piece is selected
                     // we don't want to always play the audio
                     // because the player could get a headache
                     gamePanel.stopAllAudios();
                     piece.pieceData.audioClip.setFramePosition(0);
                     piece.pieceData.audioClip.start();}
                 }
-
-
 
             if (piece.isToggled) {
                 gamePanel.toggledPiece = piece;
@@ -76,6 +76,8 @@ public class BoardMouseListener extends MouseAdapter {
                     gamePanel.toggledBoardCells.contains(cell)){
 
                 Piece targetPiece = gamePanel.findPieceAt(cell.row,cell.column);
+                SoundEffects.TAKE_PIECE.audioClip.setFramePosition(0);
+                SoundEffects.TAKE_PIECE.audioClip.start();
                 gamePanel.getToggledPiece().moveToTakePiece(targetPiece);
                 gamePanel.untoggleAllPieces();
             }
@@ -86,6 +88,8 @@ public class BoardMouseListener extends MouseAdapter {
         if (gamePanel.toggledPiece != null &&
                 gamePanel.toggledBoardCells.contains(cell)){
 
+            SoundEffects.MOVE_PIECE.audioClip.setFramePosition(0);
+            SoundEffects.MOVE_PIECE.audioClip.start();
             gamePanel.getToggledPiece().moveTo(cell.row,cell.column);
             gamePanel.untoggleAllPieces();
         }
