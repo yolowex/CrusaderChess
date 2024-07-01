@@ -1,7 +1,7 @@
 package common.enums;
 
 public enum GameMode {
-    NORMAL,
-    CASUAL,
-    BULLET
+    PLAYER_VS_HIMSELF,
+    PLAYER_VS_PLAYER,
+    PLAYER_VS_AI
 }

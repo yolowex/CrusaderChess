@@ -5,7 +5,10 @@ import common.enums.PieceName;
 import common.enums.PieceTeam;
 import logic.Pieces.Piece;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HelperMethods {
 
@@ -33,4 +36,38 @@ public class HelperMethods {
         throw new Error("Could not find appropriate PieceData for piece "+piece);
     }
 
+
+    public static void showAlert(String message) {
+
+        JFrame alertFrame = new JFrame("Alert");
+
+        alertFrame.setSize(300, 150);
+        alertFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        alertFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
+        panel.add(messageLabel, BorderLayout.CENTER);
+
+        JButton closeButton = new JButton("Close Game");
+
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alertFrame.dispose();
+                System.exit(0);
+            }
+        });
+
+        // Add the button to the panel at the bottom
+        panel.add(closeButton, BorderLayout.SOUTH);
+
+        // Add the panel to the alert window
+        alertFrame.add(panel);
+
+        // Make the alert window visible
+        alertFrame.setVisible(true);
+    }
 }

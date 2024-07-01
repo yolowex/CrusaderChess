@@ -28,7 +28,7 @@ public class GamePanel extends JPanel {
     public Game game;
 
     public GamePanel(int parentFrameWidth, int parentFrameHeight) {
-        this.game = new Game(GameMode.NORMAL);
+        this.game = new Game(GameMode.PLAYER_VS_HIMSELF);
         this.parentFrameWidth = parentFrameWidth;
         this.parentFrameHeight = parentFrameHeight;
         this.addMouseListener(new BoardMouseListener(this));
@@ -59,6 +59,14 @@ public class GamePanel extends JPanel {
             toggledBoardCells.addAll(
                     findValidMovesOfToggledPiece()
             );
+        }
+
+        String gameState = game.getGameState();
+        if (gameState.equals(Constants.whiteWinText)){
+           HelperMethods.showAlert(Constants.whiteWinText);
+        }
+        if (gameState.equals(Constants.blackWinText)){
+           HelperMethods.showAlert(Constants.blackWinText);
         }
     }
 

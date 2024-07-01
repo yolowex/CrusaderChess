@@ -1,6 +1,8 @@
 package logic;
 
+import common.Constants;
 import common.enums.GameMode;
+import common.enums.PieceName;
 import common.enums.PieceTeam;
 import logic.Pieces.Piece;
 
@@ -16,6 +18,33 @@ public class Game {
         this.gameMode = gameMode;
         this.board = new Board(this);
         this.currentPlayerTurn = PieceTeam.CRUSADERS_WHITE;
+    }
+
+    public String getGameState(){
+        Piece whiteStronghold = null;
+        Piece blackStronghold = null;
+
+        for (Piece piece: board.getPiecesList()){
+            if (piece.team == PieceTeam.CRUSADERS_WHITE && piece.name == PieceName.STRONGHOLD){
+                whiteStronghold = piece;
+            }
+            if (piece.team == PieceTeam.MUSLIMS_BLACK && piece.name == PieceName.STRONGHOLD){
+                blackStronghold = piece;
+            }
+        }
+
+        if (whiteStronghold == null || blackStronghold == null){
+            throw new Error("One of the kings is missing!");
+        }
+
+        if (!whiteStronghold.isAlive){
+            return Constants.blackWinText;
+        }
+        if (!blackStronghold.isAlive){
+            return Constants.whiteWinText;
+        }
+
+        return Constants.ongoingGameText;
     }
 
 
