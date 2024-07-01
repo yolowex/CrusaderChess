@@ -1,5 +1,7 @@
 package gui.game;
 
+import gui.app.MainMenu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +11,8 @@ public class MainPanel {
     private JPanel panel;
 
     public MainPanel(JFrame parentFrame, int parentWidth, int parentHeight){
-        panel = new GamePanel(parentWidth,parentHeight);
+//        panel = new GamePanel(parentWidth,parentHeight);
+        panel = new MainMenu(parentWidth,parentHeight);
 //        panel.add(new Board());
         // Add components to mainPanel
 //        panel.setLayout(new BorderLayout());
