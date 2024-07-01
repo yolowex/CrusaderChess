@@ -22,7 +22,7 @@ public class CrusaderChessMainFrame {
 
         Dimension scrSize = HelperMethods.getScreenSize();
 
-        frameWidth = (int)(scrSize.height * 0.7 * 0.9);
+        frameWidth = (int)(scrSize.height * 0.7 * 0.5);
         frameHeight = (int)(scrSize.height * 0.7);
         frame.setSize(frameWidth,frameHeight);//400 width and 500 height
         frame.setResizable(false);

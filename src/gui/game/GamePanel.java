@@ -2,6 +2,7 @@ package gui.game;
 
 import common.Constants;
 import common.enums.GameMode;
+import common.enums.SoundEffects;
 import gui.events.BoardMouseListener;
 import gui.game.components.CellHighlightComponent;
 import gui.game.components.PieceComponent;
@@ -12,6 +13,7 @@ import logic.Pieces.Piece;
 import utils.BoardCell;
 import utils.HelperMethods;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,6 +34,12 @@ public class GamePanel extends JPanel {
         this.addMouseListener(new BoardMouseListener(this));
         initializeBoardCells();
         updatePieces();
+        startMusic();
+    }
+
+    public void startMusic(){
+        SoundEffects.BACKGROUND_MUSIC.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+        SoundEffects.BACKGROUND_MUSIC.audioClip.start();
     }
 
     @Override

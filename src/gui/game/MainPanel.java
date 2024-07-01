@@ -9,7 +9,6 @@ public class MainPanel {
     public MainPanel(JFrame parentFrame, int parentWidth, int parentHeight){
         panel = new GamePanel(parentWidth,parentHeight);
 
-
 //        panel.add(new Board());
         // Add components to mainPanel
 //        panel.setLayout(new BorderLayout());
@@ -18,7 +17,8 @@ public class MainPanel {
         panel.setBackground(Color.WHITE);
         panel.setBounds(
                 ((parentWidth) - (int)(parentHeight * 0.5)) / 2,
-                0,(int)(parentHeight * 0.5)
+                0,
+                (int)(parentHeight * 0.5)
                 ,parentHeight
         );
         parentFrame.add(panel);

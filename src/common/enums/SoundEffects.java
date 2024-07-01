@@ -11,6 +11,7 @@ public enum SoundEffects {
 
     MOVE_PIECE("assets/audio/move_piece.wav"),
     TAKE_PIECE("assets/audio/take_piece.wav"),
+    BACKGROUND_MUSIC("assets/audio/music.wav"),
     ;
 
     public final Clip audioClip;
