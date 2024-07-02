@@ -4,11 +4,12 @@ import common.enums.PieceName;
 import common.enums.PieceTeam;
 import logic.Cell;
 
+import java.io.Serializable;
 import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Piece {
+public class Piece implements Serializable {
     public final PieceName name;
     public final PieceTeam team;
     public final int power;
@@ -57,7 +58,6 @@ public class Piece {
 
     public void moveTo(int row,int column){
         cell.update(row, column);
-
         // this way of accessing Game is probably bad
         cell.board.game.turnMove();
 

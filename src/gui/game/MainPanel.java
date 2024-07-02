@@ -2,8 +2,7 @@ package gui.game;
 
 import common.enums.GameMode;
 import gui.app.MainMenuPanel;
-import logic.Game;
-import utils.SocketManager;
+import socket.SocketManager;
 
 import javax.swing.*;
 import java.awt.*;

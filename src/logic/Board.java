@@ -3,12 +3,13 @@ package logic;
 import common.enums.PieceTeam;
 import logic.Pieces.*;
 
+import java.io.Serializable;
 import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Board {
+public class Board implements Serializable {
     final private ArrayList<Piece> piecesList = new ArrayList<>();
     final public Game game;
     final public int boardTotalColumns; // x
@@ -17,6 +18,11 @@ public class Board {
     public List<Piece> getPiecesList() {
         // return an unmodifiable version to prevent random fuck-ups
         return Collections.unmodifiableList(piecesList);
+    }
+
+    public void setPiecesList(ArrayList<Piece> piecesList){
+        this.piecesList.clear();
+        this.piecesList.addAll(piecesList);
     }
 
     public Board(Game game){

@@ -2,7 +2,7 @@ package gui.app;
 
 import common.enums.GameMode;
 import gui.game.MainPanel;
-import utils.SocketManager;
+import socket.SocketManager;
 
 import javax.swing.*;
 import java.awt.*;

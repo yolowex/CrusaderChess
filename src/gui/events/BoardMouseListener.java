@@ -7,11 +7,14 @@ import gui.app.AppSettings;
 import gui.game.GamePanel;
 import gui.game.models.PieceModel;
 import logic.Pieces.Piece;
+import socket.SocketManager;
+import socket.SocketMessage;
 import utils.BoardCell;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class BoardMouseListener extends MouseAdapter {
     public GamePanel gamePanel;
@@ -99,11 +102,22 @@ public class BoardMouseListener extends MouseAdapter {
                 }
                 gamePanel.getToggledPiece().moveToTakePiece(targetPiece);
                 gamePanel.untoggleAllPieces();
+
+                SocketMessage socketMessage = new SocketMessage(new ArrayList<>(gamePanel.game.getPiecesList()),
+                        gamePanel.game.getCurrentPlayerTurn());
+
+                if (gamePanel.gameMode == GameMode.PVP_SERVER){
+                    SocketManager.getInstance().sendMessageToClient(socketMessage);
+                }
+                else if (gamePanel.gameMode == GameMode.PVP_CLIENT){
+                    SocketManager.getInstance().sendMessageToServer(socketMessage);
+                }
             }
         }
     }
 
     private void clickedOnEmptyCell(BoardCell cell){
+//        System.out.println("User clicked on cell "+cell.row+" "+cell.column);
         AppSettings appSettings = AppSettings.getInstance();
 
         if (gamePanel.toggledPiece != null &&
@@ -115,6 +129,18 @@ public class BoardMouseListener extends MouseAdapter {
             }
             gamePanel.getToggledPiece().moveTo(cell.row,cell.column);
             gamePanel.untoggleAllPieces();
+
+            SocketMessage socketMessage = new SocketMessage(new ArrayList<>(gamePanel.game.getPiecesList()),
+                    gamePanel.game.getCurrentPlayerTurn());
+
+            if (gamePanel.gameMode == GameMode.PVP_SERVER){
+                SocketManager.getInstance().sendMessageToClient(socketMessage);
+            }
+            else if (gamePanel.gameMode == GameMode.PVP_CLIENT){
+                SocketManager.getInstance().sendMessageToServer(socketMessage);
+            }
+
+
         }
 
     }

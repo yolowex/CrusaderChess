@@ -6,10 +6,11 @@ import common.enums.PieceName;
 import common.enums.PieceTeam;
 import logic.Pieces.Piece;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game implements Serializable {
     private Board board;
     private GameMode gameMode;
     private PieceTeam currentPlayerTurn;
@@ -47,22 +48,36 @@ public class Game {
         return Constants.ongoingGameText;
     }
 
+    public Board getBoard() {
+        return board;
+    }
 
-    public Piece findPieceAt(int row,int column){
+    public Piece findPieceAt(int row, int column){
         return board.findPieceAt(row,column);
     }
 
     public List<Piece> getPiecesList(){
         return board.getPiecesList();
     }
+
+    public void setPiecesList(ArrayList<Piece> piecesList){
+        board.setPiecesList(piecesList);
+    }
     public PieceTeam getCurrentPlayerTurn(){return currentPlayerTurn;}
 
+    public void setCurrentPlayerTurn(PieceTeam currentPlayerTurn) {
+        this.currentPlayerTurn = currentPlayerTurn;
+    }
+
     public void turnMove(){
+
+
         if (currentPlayerTurn == PieceTeam.CRUSADERS_WHITE){
             currentPlayerTurn = PieceTeam.MUSLIMS_BLACK;
         }
         else{
             currentPlayerTurn = PieceTeam.CRUSADERS_WHITE;
         }
+
     }
 }

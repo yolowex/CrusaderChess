@@ -2,13 +2,14 @@ package logic;
 
 import logic.Pieces.Piece;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Cell {
+public class Cell implements Serializable {
     public int row;
     public int column;
-    public final Board board;
+    public Board board;
 
     public Cell(int row, int column, Board board) {
         this.row = row;

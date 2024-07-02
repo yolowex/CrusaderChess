@@ -4,7 +4,7 @@ public class AppSettings {
     private static AppSettings instance = null;
 
     public boolean soundMuted = false;
-    public boolean musicMuted = false;
+    public boolean musicMuted = true;
 
     private AppSettings(){}
 
