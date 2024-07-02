@@ -1,5 +1,7 @@
 package gui.events;
 
+import common.enums.GameMode;
+import common.enums.PieceTeam;
 import common.enums.SoundEffects;
 import gui.app.AppSettings;
 import gui.game.GamePanel;
@@ -24,6 +26,16 @@ public class BoardMouseListener extends MouseAdapter {
         int x = e.getX();
         int y = e.getY();
 
+        if (gamePanel.gameMode == GameMode.PVP_SERVER
+                && gamePanel.game.getCurrentPlayerTurn() == PieceTeam.MUSLIMS_BLACK){
+            return;
+        }
+
+        if (gamePanel.gameMode == GameMode.PVP_CLIENT
+                && gamePanel.game.getCurrentPlayerTurn() == PieceTeam.CRUSADERS_WHITE){
+            return;
+        }
+
         for (BoardCell cell: gamePanel.boardCells) {
             if (cell.rectangle.contains(new Point(x,y))){
                 PieceModel clickedPiece = gamePanel.findPieceModelWithCell(cell);
@@ -44,7 +56,6 @@ public class BoardMouseListener extends MouseAdapter {
 
         if (gamePanel.game.getCurrentPlayerTurn() == piece.pieceTeam) {
             // if the piece the player clicked on is an ally, toggle that instead
-
 
             if (gamePanel.toggledPiece != null){
                 if (gamePanel.toggledPiece.row == piece.row
