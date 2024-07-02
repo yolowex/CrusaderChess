@@ -3,6 +3,7 @@ package gui.game;
 import common.Constants;
 import common.enums.GameMode;
 import common.enums.SoundEffects;
+import gui.app.AppSettings;
 import gui.events.BoardMouseListener;
 import gui.game.components.CellHighlightComponent;
 import gui.game.components.PieceComponent;
@@ -38,6 +39,7 @@ public class GamePanel extends JPanel {
     }
 
     public void startMusic(){
+        if (AppSettings.getInstance().musicMuted) return;
         SoundEffects.BACKGROUND_MUSIC.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
         SoundEffects.BACKGROUND_MUSIC.audioClip.start();
     }
