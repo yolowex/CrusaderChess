@@ -6,6 +6,8 @@ import utils.HelperMethods;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CrusaderChessMainFrame {
     private JFrame frame;
@@ -28,11 +30,26 @@ public class CrusaderChessMainFrame {
         frame.setResizable(false);
         frame.setLayout(null);//using no layout managers
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // Set to do nothing
+
+        // Add window listener to handle window closing
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                onClose();
+            }
+        });
 
         new AppMenuBar(frame);
-        new MainPanel(frame,frameWidth,(int) (frameHeight * 0.92));
+        new MainPanel(frame, frameWidth, (int) (frameHeight * 0.92));
 
         frame.setVisible(true);//making the frame visible
+    }
+
+    private void onClose() {
+        // Your custom close logic here
+        System.exit(0);
+        // Dispose the frame
+        frame.dispose();
     }
 }
