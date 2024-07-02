@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -63,11 +63,10 @@ public class MainMenuPanel extends JPanel {
         add(new JLabel("Choose an option:"), gbc);
         JButton createServerButton = new JButton("Create Server");
         JButton joinServerButton = new JButton("Join Server");
-        JButton pvpStartButton = new JButton("Start");
 
         add(createServerButton, gbc);
         add(joinServerButton, gbc);
-        add(pvpStartButton, gbc);
+
 
         createServerButton.addActionListener(new ActionListener() {
             @Override
@@ -80,13 +79,6 @@ public class MainMenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 joinServer(gbc);
-            }
-        });
-
-        pvpStartButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Implement logic to start the game in PVP mode
             }
         });
 
@@ -105,15 +97,19 @@ public class MainMenuPanel extends JPanel {
             public void run() {
                 try {
                     ServerSocket serverSocket = new ServerSocket(12345);
-                    Socket socket = serverSocket.accept();
-                    System.out.println("Server connected: " + socket.getInetAddress());
+                    System.out.println("Server started. Waiting for a client...");
+
+
+
                     removeAll();
                     add(new JLabel("Connected to Client!!"), gbc);
                     revalidate();
                     repaint();
-                    // Handle server-side logic here
-
+                    Socket socket = serverSocket.accept();
+                    System.out.println("Client connected: " + socket.getInetAddress());
+                    new Thread(new ClientHandler(socket)).start();
                     serverSocket.close();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -125,15 +121,59 @@ public class MainMenuPanel extends JPanel {
         try {
             Socket socket = new Socket("localhost", 12345); // Replace "localhost" with server IP if needed
             System.out.println("Connected to server: " + socket.getInetAddress());
+
+            // Get output stream to send data to the server
+            OutputStream outputStream = socket.getOutputStream();
+            PrintWriter out = new PrintWriter(outputStream, true);
+
+            // Send a message to the server
+            String message = "Hello from client!";
+            out.println(message);
+
+            // Close resources
+            out.close();
+            outputStream.close();
+
             removeAll();
             add(new JLabel("Connected to Server!!"), gbc);
             revalidate();
             repaint();
-            // Handle client-side logic here
-
             socket.close();
+
+
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    static class ClientHandler implements Runnable {
+        private final Socket clientSocket;
+
+        public ClientHandler(Socket socket) {
+            this.clientSocket = socket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                // Set up input stream to receive data from client
+                InputStream inputStream = clientSocket.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String message;
+                while ((message = reader.readLine()) != null) {
+                    System.out.println("Received from client: " + message);
+
+                    // Handle the received message here as needed
+                }
+
+                // Close resources
+                reader.close();
+                inputStream.close();
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
