@@ -1,5 +1,7 @@
 package utils;
 
+import gui.game.GamePanel;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,6 +15,7 @@ public class SocketManager {
     private Socket clientSocket;
     private BufferedReader clientReader;
     private PrintWriter clientWriter;
+    private GamePanel gamePanel = null;
 
     private SocketManager() {
         // Private constructor to prevent instantiation
@@ -92,5 +95,9 @@ public class SocketManager {
         if (clientSocket != null) {
             clientSocket.close();
         }
+    }
+
+    public void registerGamePanel(GamePanel gamePanel){
+        this.gamePanel = gamePanel;
     }
 }

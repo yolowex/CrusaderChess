@@ -1,7 +1,8 @@
 package common.enums;
 
 public enum GameMode {
-    PLAYER_VS_HIMSELF,
-    PLAYER_VS_PLAYER,
+    NORMAL,
+    PVP_SERVER,
+    PVP_CLIENT,
     PLAYER_VS_AI
 }

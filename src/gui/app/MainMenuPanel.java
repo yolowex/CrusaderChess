@@ -1,5 +1,6 @@
 package gui.app;
 
+import common.enums.GameMode;
 import gui.game.MainPanel;
 import utils.SocketManager;
 
@@ -8,8 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class MainMenuPanel extends JPanel {
     private JRadioButton practiceMode;
@@ -50,7 +49,7 @@ public class MainMenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (practiceMode.isSelected()){
-                    mainPanel.startPracticeMode();
+                    mainPanel.startGame(GameMode.NORMAL);
                 }
                 if (pvpMode.isSelected()) {
                     startPVPMenu(gbc);
@@ -100,6 +99,7 @@ public class MainMenuPanel extends JPanel {
         try {
 
             socketManager.startServer(12345);
+            mainPanel.startGame(GameMode.PVP_SERVER);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -109,6 +109,8 @@ public class MainMenuPanel extends JPanel {
         SocketManager socketManager = SocketManager.getInstance();
         try {
             socketManager.startClient("localhost",12345);
+            mainPanel.startGame(GameMode.PVP_CLIENT);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

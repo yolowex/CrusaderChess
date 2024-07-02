@@ -10,6 +10,7 @@ import gui.game.components.PieceComponent;
 import gui.game.models.PieceModel;
 import logic.Cell;
 import logic.Game;
+import logic.GameFactory;
 import logic.Pieces.Piece;
 import utils.BoardCell;
 import utils.HelperMethods;
@@ -27,9 +28,11 @@ public class GamePanel extends JPanel {
     public ArrayList<PieceModel> pieceModels = new ArrayList<>();
     public PieceModel toggledPiece = null;
     public Game game;
+    public GameMode gameMode;
 
-    public GamePanel(int parentFrameWidth, int parentFrameHeight) {
-        this.game = new Game(GameMode.PLAYER_VS_HIMSELF);
+    public GamePanel(int parentFrameWidth, int parentFrameHeight,GameMode gameMode) {
+        this.game = GameFactory.getGame(gameMode);
+        this.gameMode = gameMode;
         this.parentFrameWidth = parentFrameWidth;
         this.parentFrameHeight = parentFrameHeight;
         this.addMouseListener(new BoardMouseListener(this));

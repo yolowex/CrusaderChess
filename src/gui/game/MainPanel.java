@@ -1,6 +1,9 @@
 package gui.game;
 
+import common.enums.GameMode;
 import gui.app.MainMenuPanel;
+import logic.Game;
+import utils.SocketManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +32,9 @@ public class MainPanel {
         );
     }
 
-    public void startPracticeMode(){
-        JPanel panel = new GamePanel(parentWidth,parentHeight);
+    public void startGame(GameMode gameMode){
+        GamePanel panel = new GamePanel(parentWidth,parentHeight,gameMode);
+        SocketManager.getInstance().registerGamePanel(panel);
         parentFrame.remove(this.panel);
         this.panel = panel;
         panel.setBackground(Color.WHITE);
@@ -46,4 +50,7 @@ public class MainPanel {
         parentFrame.revalidate();
         parentFrame.repaint();
     }
+
+
+
 }
