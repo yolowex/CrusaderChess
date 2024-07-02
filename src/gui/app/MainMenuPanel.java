@@ -1,6 +1,7 @@
 package gui.app;
 
 import gui.game.MainPanel;
+import utils.SocketManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,112 +69,49 @@ public class MainMenuPanel extends JPanel {
         add(joinServerButton, gbc);
 
 
-        createServerButton.addActionListener(new ActionListener() {
+        // for server
+        createServerButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                startServer(gbc);
+                removeAll();
+                add(new JLabel("Waiting for opponent to connect..."), gbc);
+                revalidate();
+                repaint();
+                // when i try to repaint the panel here, the app stucks
+                new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        startServer(gbc);
+                    }
+                }).start();
             }
         });
 
-        joinServerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                joinServer(gbc);
-            }
-        });
+        // for client
+        joinServerButton.addActionListener(e -> joinServer(gbc));
 
         revalidate();
         repaint();
     }
 
     private void startServer(GridBagConstraints gbc) {
-        removeAll();
-        add(new JLabel("Waiting for opponent to connect..."), gbc);
-        revalidate();
-        repaint();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ServerSocket serverSocket = new ServerSocket(12345);
-                    System.out.println("Server started. Waiting for a client...");
+        SocketManager socketManager = SocketManager.getInstance();
+        try {
 
-
-
-                    removeAll();
-                    add(new JLabel("Connected to Client!!"), gbc);
-                    revalidate();
-                    repaint();
-                    Socket socket = serverSocket.accept();
-                    System.out.println("Client connected: " + socket.getInetAddress());
-                    new Thread(new ClientHandler(socket)).start();
-                    serverSocket.close();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+            socketManager.startServer(12345);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void joinServer(GridBagConstraints gbc) {
+        SocketManager socketManager = SocketManager.getInstance();
         try {
-            Socket socket = new Socket("localhost", 12345); // Replace "localhost" with server IP if needed
-            System.out.println("Connected to server: " + socket.getInetAddress());
-
-            // Get output stream to send data to the server
-            OutputStream outputStream = socket.getOutputStream();
-            PrintWriter out = new PrintWriter(outputStream, true);
-
-            // Send a message to the server
-            String message = "Hello from client!";
-            out.println(message);
-
-            // Close resources
-            out.close();
-            outputStream.close();
-
-            removeAll();
-            add(new JLabel("Connected to Server!!"), gbc);
-            revalidate();
-            repaint();
-            socket.close();
-
-
+            socketManager.startClient("localhost",12345);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
-    static class ClientHandler implements Runnable {
-        private final Socket clientSocket;
-
-        public ClientHandler(Socket socket) {
-            this.clientSocket = socket;
-        }
-
-        @Override
-        public void run() {
-            try {
-                // Set up input stream to receive data from client
-                InputStream inputStream = clientSocket.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String message;
-                while ((message = reader.readLine()) != null) {
-                    System.out.println("Received from client: " + message);
-
-                    // Handle the received message here as needed
-                }
-
-                // Close resources
-                reader.close();
-                inputStream.close();
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }
