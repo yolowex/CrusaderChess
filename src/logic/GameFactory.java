@@ -12,6 +12,7 @@ public class GameFactory {
             return new GameServer(gameMode);
         }
         else if (gameMode == GameMode.PVP_CLIENT){
+            // mute music in client to prevent two musics playing ATST
             AppSettings.getInstance().musicMuted = true;
             return new GameClient(gameMode);
         }
