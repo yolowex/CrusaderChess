@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game implements Serializable {
-    private Board board;
-    private GameMode gameMode;
-    private PieceTeam currentPlayerTurn;
+    protected Board board;
+    protected GameMode gameMode;
+    protected PieceTeam currentPlayerTurn;
 
     public Game(GameMode gameMode) {
         this.gameMode = gameMode;

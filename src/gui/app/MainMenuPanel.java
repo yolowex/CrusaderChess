@@ -54,6 +54,10 @@ public class MainMenuPanel extends JPanel {
                 if (pvpMode.isSelected()) {
                     startPVPMenu(gbc);
                 }
+                if (pvcMode.isSelected()){
+                    mainPanel.startGame(GameMode.PLAYER_VS_AI);
+
+                }
             }
         });
     }

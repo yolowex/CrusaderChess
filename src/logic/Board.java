@@ -1,6 +1,7 @@
 package logic;
 
 import common.enums.PieceTeam;
+import gui.events.BoardMouseListener;
 import logic.Pieces.*;
 
 import java.io.Serializable;
@@ -64,6 +65,19 @@ public class Board implements Serializable {
         piecesList.add(new Stronghold(PieceTeam.CRUSADERS_WHITE,new Cell(7,2,this)));
         piecesList.add(new Archer(PieceTeam.CRUSADERS_WHITE,new Cell(7,3,this)));
         //
+    }
+
+    public ArrayList<Piece.PieceMoveBundle> getValidAIPieceMoveBundles(){
+        ArrayList<Piece.PieceMoveBundle> pieceMoveBundles = new ArrayList<>();
+
+        for (Piece piece: piecesList){
+            if (piece.team == PieceTeam.CRUSADERS_WHITE) continue;
+            if (! piece.isAlive) continue;
+            pieceMoveBundles.addAll(piece.getValidAIMoveBundles());
+        }
+
+        return pieceMoveBundles;
+
     }
 
 }

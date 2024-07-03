@@ -6,6 +6,7 @@ import logic.Cell;
 
 import java.io.Serializable;
 import java.lang.module.FindException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -18,6 +19,35 @@ public class Piece implements Serializable {
     public final Cell cell;
     public boolean isAlive;
 
+    public static class PieceMoveBundle{
+        // used for AI piece movements
+        public Piece piece;
+        public Piece targetPiece = null;
+        public Cell targetCell = null;
+
+        public PieceMoveBundle(Piece piece, Piece targetPiece, Cell targetCell) {
+            this.piece = piece;
+            this.targetPiece = targetPiece;
+            this.targetCell = targetCell;
+            if (targetCell == null && targetPiece == null){
+                throw new InvalidParameterException(
+                        getClass().getName() +" Invalid constructor parameters"
+                );
+            }
+        }
+
+        public void performMove(){
+            if (targetPiece != null){
+                System.out.println(piece+" takes "+targetPiece);
+                piece.moveToTakePiece(targetPiece);
+            }
+            if (targetCell != null){
+                System.out.println(piece+" moves to "+targetCell);
+
+                piece.moveTo(targetCell.row,targetCell.column);
+            }
+        }
+    }
 
     public Piece(PieceName name, PieceTeam team, int power,int movementRange,Cell cell) {
         this.name = name;
@@ -149,5 +179,34 @@ public class Piece implements Serializable {
             return false;
         }
     }
+
+
+    public ArrayList<PieceMoveBundle> getValidAIMoveBundles(){
+        ArrayList<Piece.PieceMoveBundle> pieceMoveBundles = new ArrayList<>();
+
+        for (Cell cell: getValidMoves()){
+            Piece targetPiece = null;
+            PieceMoveBundle pieceMoveBundle;
+            try{
+                targetPiece =cell.board.findPieceAt(cell.row,cell.column);
+            } catch (FindException e) {}
+
+            if (targetPiece != null){
+                pieceMoveBundle = new PieceMoveBundle(this,targetPiece,null);
+            }
+            else{
+                pieceMoveBundle = new PieceMoveBundle(this,null,cell);
+            }
+
+            pieceMoveBundles.add(pieceMoveBundle);
+
+        }
+
+        return  pieceMoveBundles;
+    }
+
+
+
+
 
 }

@@ -17,6 +17,11 @@ public class Cell implements Serializable {
         this.board = board;
     }
 
+    @Override
+    public String toString() {
+        return "<Cell: row:"+row+", column:"+column+">";
+    }
+
     public void update(Cell cell){
         this.row = cell.row;
         this.column = cell.column;

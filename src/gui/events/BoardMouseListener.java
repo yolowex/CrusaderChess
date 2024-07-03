@@ -6,6 +6,7 @@ import common.enums.SoundEffects;
 import gui.app.AppSettings;
 import gui.game.GamePanel;
 import gui.game.models.PieceModel;
+import logic.GameAi;
 import logic.Pieces.Piece;
 import socket.SocketManager;
 import socket.SocketMessage;
@@ -29,6 +30,7 @@ public class BoardMouseListener extends MouseAdapter {
         int x = e.getX();
         int y = e.getY();
 
+        // on these three condition blocks, prevent user from controlling opponent pieces
         if (gamePanel.gameMode == GameMode.PVP_SERVER
                 && gamePanel.game.getCurrentPlayerTurn() == PieceTeam.MUSLIMS_BLACK){
             return;
@@ -36,6 +38,11 @@ public class BoardMouseListener extends MouseAdapter {
 
         if (gamePanel.gameMode == GameMode.PVP_CLIENT
                 && gamePanel.game.getCurrentPlayerTurn() == PieceTeam.CRUSADERS_WHITE){
+            return;
+        }
+
+        if (gamePanel.gameMode == GameMode.PLAYER_VS_AI
+                && gamePanel.game.getCurrentPlayerTurn() == PieceTeam.MUSLIMS_BLACK){
             return;
         }
 
@@ -102,6 +109,9 @@ public class BoardMouseListener extends MouseAdapter {
                 }
                 gamePanel.getToggledPiece().moveToTakePiece(targetPiece);
                 gamePanel.untoggleAllPieces();
+                if (gamePanel.gameMode == GameMode.PLAYER_VS_AI){
+                    ((GameAi) gamePanel.game).makeAiMove();
+                }
 
                 SocketMessage socketMessage = new SocketMessage(new ArrayList<>(gamePanel.game.getPiecesList()),
                         gamePanel.game.getCurrentPlayerTurn());
@@ -129,7 +139,9 @@ public class BoardMouseListener extends MouseAdapter {
             }
             gamePanel.getToggledPiece().moveTo(cell.row,cell.column);
             gamePanel.untoggleAllPieces();
-
+            if (gamePanel.gameMode == GameMode.PLAYER_VS_AI){
+                ((GameAi) gamePanel.game).makeAiMove();
+            }
             SocketMessage socketMessage = new SocketMessage(new ArrayList<>(gamePanel.game.getPiecesList()),
                     gamePanel.game.getCurrentPlayerTurn());
 

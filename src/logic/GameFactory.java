@@ -16,6 +16,9 @@ public class GameFactory {
             AppSettings.getInstance().musicMuted = true;
             return new GameClient(gameMode);
         }
+        else if(gameMode == GameMode.PLAYER_VS_AI){
+            return new GameAi(gameMode);
+        }
         throw new Error("Bad game mode! "+gameMode);
     }
 }

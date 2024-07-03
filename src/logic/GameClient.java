@@ -8,4 +8,3 @@ public class GameClient extends Game{
         super(gameMode);
     }
 }
-c

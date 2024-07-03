@@ -62,6 +62,7 @@ public enum PieceData {
     private Clip loadAudio(String path) {
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(path));
+
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             return clip;
